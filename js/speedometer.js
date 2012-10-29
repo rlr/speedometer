@@ -16,37 +16,39 @@ var $lat = $('#geolocation .lat');
 var $lon = $('#geolocation .lon');
 var $acc = $('#geolocation .acc');
 var EARTH_RADIUS = 6378000;  // meters
-var GEO_QUERY_INTERVAL = 5000;  // milliseconds
+var GEO_QUERY_INTERVAL = 1000;  // milliseconds
+var USE_WATCH_POSTION = true;
 
 
 function startSpeedometer() {
-  /* This is buggy in Firefox :( - See https://bugzilla.mozilla.org/show_bug.cgi?id=732923
-  navigator.geolocation.watchPosition(
-    function(position) {
-      addPoint(position.coords.latitude, position.coords.longitude, position.coords.accuracy);
-    },
-    function() {
-      alert('error');
-    },
-    {
-      enableHighAccuracy:true,
-      maximumAge:30000,
-      timeout:27000
-    }
-  );*/
-
-  
-  navigator.geolocation.getCurrentPosition(function(position) {
-    addPoint(position);
-    setTimeout(function() {
-      startSpeedometer();
-    }, GEO_QUERY_INTERVAL);
-  }, function(err) { alert('Error getting your location: ' + err.message); }); 
+  if (USE_WATCH_POSTION) {
+    navigator.geolocation.watchPosition(
+      function(position) {
+        addPoint(position);
+      },
+      function() {
+        alert('Error getting your location: ' + err.message);
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 3000
+        //, timeout:27000 // This is buggy in Firefox :( - See https://bugzilla.mozilla.org/show_bug.cgi?id=732923
+      }
+    );
+  } else {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        addPoint(position);
+        setTimeout(function() {
+          startSpeedometer();
+        }, GEO_QUERY_INTERVAL);
+      }, function(err) { alert('Error getting your location: ' + err.message); });
+  }
 }
 
 function addPoint(position) {
   var point = {
     time: new Date(),
+    timestamp: position.timestamp,
     lat: position.coords.latitude,
     lon: position.coords.longitude,
     accuracy: position.coords.accuracy
@@ -57,7 +59,7 @@ function addPoint(position) {
 }
 
 function updatePoint(point) {
-  $time.text(point.time.getHours() + ':' + point.time.getMinutes() + ':' + point.time.getSeconds());
+  $time.text(point.timestamp);
   $lat.text(point.lat.toFixed(2));
   $lon.text(point.lon.toFixed(2));
   $acc.text(point.accuracy);
@@ -68,9 +70,10 @@ function updateSpeed() {
     var p1 = points[points.length - 2];
     var p2 = points[points.length - 1];
     var distance = distanceBetween(p2, p1);  // meters
-    var time = (p2.time.getTime() - p1.time.getTime()) / 1000 / 60 / 60;  // hours
-    var speed = time ? (distance / time) / 1609 : 0;  // mph
-    $speed.text(speed.toFixed(1));
+    var time = (p2.timestamp - p1.timestamp) / 1000 / 60 / 60;  // hours
+    if (time > 0) {
+      $speed.text(((distance / time) / 1609).toFixed(1));
+    }
   }
 }
 
