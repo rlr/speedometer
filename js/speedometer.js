@@ -9,12 +9,13 @@ if ('geolocation' in navigator) {
 }
 
 var points = [];
-var $speed = $('#speed .val');
+var $val = $('#speed .val');
 var $units = $('#speed .units');
 var $time = $('#geolocation .time');
 var $lat = $('#geolocation .lat');
 var $lon = $('#geolocation .lon');
 var $acc = $('#geolocation .acc');
+var $speed = $('#geolocation .speed');
 var EARTH_RADIUS = 6378000;  // meters
 var GEO_QUERY_INTERVAL = 1000;  // milliseconds
 var USE_WATCH_POSTION = true;
@@ -31,7 +32,7 @@ function startSpeedometer() {
       },
       {
         enableHighAccuracy: true,
-        maximumAge: 3000
+        maximumAge: GEO_QUERY_INTERVAL
         //, timeout:27000 // This is buggy in Firefox :( - See https://bugzilla.mozilla.org/show_bug.cgi?id=732923
       }
     );
@@ -53,7 +54,8 @@ function addPoint(position) {
                   position.timestamp,
     lat: position.coords.latitude,
     lon: position.coords.longitude,
-    accuracy: position.coords.accuracy
+    accuracy: position.coords.accuracy,
+    speed: position.coords.speed * 3600/ 1609
   };
   points.push(point);
   updatePoint(point);
@@ -66,6 +68,7 @@ function updatePoint(point) {
   $lat.text(point.lat.toFixed(2));
   $lon.text(point.lon.toFixed(2));
   $acc.text(point.accuracy);
+  $speed.text(point.speed);
 }
 
 function updateSpeed() {
@@ -75,7 +78,7 @@ function updateSpeed() {
     var distance = distanceBetween(p2, p1);  // meters
     var time = (p2.timestamp - p1.timestamp) / 1000 / 60 / 60;  // hours
     if (time > 0) {
-      $speed.text(((distance / time) / 1609).toFixed(1));
+      $val.text(((distance / time) / 1609).toFixed(1));
     }
   }
 }
