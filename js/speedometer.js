@@ -48,7 +48,9 @@ function startSpeedometer() {
 function addPoint(position) {
   var point = {
     time: new Date(),
-    timestamp: position.timestamp,
+    timestamp: (navigator.platform === 'iPhone' || navigator.platform === 'iPad') ?
+                  position.timestamp / 1000 :
+                  position.timestamp,
     lat: position.coords.latitude,
     lon: position.coords.longitude,
     accuracy: position.coords.accuracy
@@ -59,7 +61,8 @@ function addPoint(position) {
 }
 
 function updatePoint(point) {
-  $time.text(point.timestamp);
+  var d = new Date(point.timestamp);
+  $time.text(d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
   $lat.text(point.lat.toFixed(2));
   $lon.text(point.lon.toFixed(2));
   $acc.text(point.accuracy);
