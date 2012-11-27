@@ -1,0 +1,20 @@
+{
+  "version": "0.1",
+  "name": "Speedometer",
+  "description": "Open Web GPS Speedometer.",
+  "icons": {
+    "16": "/img/icon-16.png",
+    "48": "/img/icon-48.png",
+    "128": "/img/icon-128.png"
+  },
+  "developer": {
+    "name": "Ricky Rosario (r1cky)",
+    "url": "http://rickyrosario.com/"
+  },
+  "launch_path": "/",
+  "installs_allowed_from": ["*"],
+  "appcache_path": "/manifest.appcache",
+  "locales": {
+  },
+  "default_locale": "en"
+}
