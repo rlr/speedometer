@@ -13,17 +13,36 @@
 </head>
 <body>
 
-  <section id="speed">
-    <span class="val">0</span>
-    <span class="units">mph</span>
-  </section>
+  <div id="page">
+    <section id="speed">
+      <span class="val">0</span>
+      <span class="units">mph</span>
+    </section>
 
-  <section id="geolocation">
-    [<span class="time"></span>]
-    lat: <span class="lat"></span>
-    lon: <span class="lon"></span>
-    accuracy: <span class="acc"></span>m
-    speed: <span class="speed"></span>
+    <div id="settings-toggle">*</div>
+
+    <section id="geolocation-debug">
+      [<span class="time"></span>]
+      lat: <span class="lat"></span>
+      lon: <span class="lon"></span>
+      accuracy: <span class="acc"></span>m
+      speed: <span class="speed"></span>
+    </section>
+  </div>
+
+  <section id="settings">
+    <header>Settings</header>
+    <ul>
+      <li>
+        <label for="units">Units</label>
+        <select id="units">
+          <option>metric</option>
+          <option>imperial</option>
+        </select>
+      </li>
+      <li>
+        <label for="debug">Debug</label>
+        <input id="debug" type="checkbox" />
   </section>
 
   <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>

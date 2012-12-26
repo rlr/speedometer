@@ -2,48 +2,79 @@
 
 (function($) {
 
-if ('geolocation' in navigator) {
-  startSpeedometer();
-} else {
-  alert("I'm sorry, but geolocation services are not supported by your browser.");
-}
+var settings = {
+  debug: localStorage['settings.debug'] === 'true' || false,
+  units: localStorage['settings.units'] || 'metric', // or 'imperial'
+  geoQueryInterval: 1000 // milliseconds
+};
 
 var points = [];
 var $val = $('#speed .val');
 var $units = $('#speed .units');
-var $time = $('#geolocation .time');
-var $lat = $('#geolocation .lat');
-var $lon = $('#geolocation .lon');
-var $acc = $('#geolocation .acc');
-var $speed = $('#geolocation .speed');
+
+var $time = $('#geolocation-debug .time');
+var $lat = $('#geolocation-debug .lat');
+var $lon = $('#geolocation-debug .lon');
+var $acc = $('#geolocation-debug .acc');
+var $speed = $('#geolocation-debug .speed');
+
 var EARTH_RADIUS = 6378000;  // meters
-var GEO_QUERY_INTERVAL = 1000;  // milliseconds
-var USE_WATCH_POSTION = true;
 
 
-function startSpeedometer() {
-  if (USE_WATCH_POSTION) {
-    navigator.geolocation.watchPosition(
-      function(position) {
-        addPoint(position);
-      },
-      function() {
-        alert('Error getting your location: ' + err.message);
-      },
-      {
-        enableHighAccuracy: true,
-        maximumAge: GEO_QUERY_INTERVAL
-        //, timeout:27000 // This is buggy in Firefox :( - See https://bugzilla.mozilla.org/show_bug.cgi?id=732923
-      }
-    );
+if ('geolocation' in navigator) {
+  initSettings();
+  initSpeedometer();
+} else {
+  alert("I'm sorry, but geolocation services are not supported by your browser.");
+}
+
+function initSettings() {
+  $('#settings-toggle').click(function() {
+    $('body').toggleClass('settings');
+  });
+  updateSettings();
+
+  $('#units').val(settings.units).change(function() {
+    settings.units = $(this).val();
+    localStorage['settings.units'] = settings.units;
+    updateSettings();
+  });
+
+  $('#debug').attr('checked', settings.debug).change(function() {
+    settings.debug = $(this).is(':checked');
+    localStorage['settings.debug'] = settings.debug;
+    updateSettings();
+  });
+}
+
+function updateSettings() {
+  if (settings.debug) {
+    $('body').addClass('debug');
   } else {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        addPoint(position);
-        setTimeout(function() {
-          startSpeedometer();
-        }, GEO_QUERY_INTERVAL);
-      }, function(err) { alert('Error getting your location: ' + err.message); });
+    $('body').removeClass('debug');
   }
+
+  if (settings.units === 'metric') {
+    $units.text('km/h');
+  } else {
+    $units.text('mph');
+  }
+}
+
+function initSpeedometer() {
+  navigator.geolocation.watchPosition(
+    function(position) {
+      addPoint(position);
+    },
+    function() {
+      alert('Error getting your location: ' + err.message);
+    },
+    {
+      enableHighAccuracy: true,
+      maximumAge: settings.geoQueryInterval
+      //, timeout:27000 // This is buggy in Firefox - See https://bugzilla.mozilla.org/show_bug.cgi?id=732923
+    }
+  );
 }
 
 function addPoint(position) {
@@ -63,12 +94,14 @@ function addPoint(position) {
 }
 
 function updatePoint(point) {
-  var d = new Date(point.timestamp);
-  $time.text(d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
-  $lat.text(point.lat.toFixed(2));
-  $lon.text(point.lon.toFixed(2));
-  $acc.text(point.accuracy);
-  $speed.text(point.speed);
+  if (settings.debug) {
+    var d = new Date(point.timestamp);
+    $time.text(d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
+    $lat.text(point.lat.toFixed(2));
+    $lon.text(point.lon.toFixed(2));
+    $acc.text(point.accuracy);
+    $speed.text(point.speed);
+  }
 }
 
 function updateSpeed() {
@@ -77,8 +110,15 @@ function updateSpeed() {
     var p2 = points[points.length - 1];
     var distance = distanceBetween(p2, p1);  // meters
     var time = (p2.timestamp - p1.timestamp) / 1000 / 60 / 60;  // hours
+    var divisor = settings.units === 'metric' ? 1000 : 1609;
     if (time > 0) {
-      $val.text(((distance / time) / 1609).toFixed(1));
+      var speed = (distance / time) / divisor;
+      if (speed < 5) {
+        speed = speed.toFixed(1);
+      } else {
+        speed = Math.round(speed);
+      }
+      $val.text(speed);
     }
   }
 }
