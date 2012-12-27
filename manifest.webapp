@@ -18,7 +18,7 @@
     "geolocation": {
       "description": "Used to calculate speed based on GPS changes."
     }
-  }
+  },
   "locales": {
   },
   "default_locale": "en"
