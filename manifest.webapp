@@ -1,6 +1,6 @@
 {
   "version": "0.2",
-  "name": "Speedometer",
+  "name": "speed",
   "description": "Open Web GPS Speedometer.",
   "icons": {
     "16": "/img/icon-16.png",
@@ -13,7 +13,7 @@
   },
   "launch_path": "/",
   "installs_allowed_from": ["*"],
-  "appcache_path": "/manifest.appcache",
+  "appcache_path": "/speedometer/manifest.appcache",
   "locales": {
   },
   "default_locale": "en"
