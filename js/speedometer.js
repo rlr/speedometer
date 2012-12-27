@@ -18,6 +18,9 @@ var $lon = $('#geolocation-debug .lon');
 var $acc = $('#geolocation-debug .acc');
 var $speed = $('#geolocation-debug .speed');
 
+var $gpsBars = $('#gps-bars');
+var $gpsMessage = $('#gps-message');
+
 var EARTH_RADIUS = 6378000;  // meters
 
 
@@ -91,6 +94,7 @@ function addPoint(position) {
   points.push(point);
   updatePoint(point);
   updateSpeed();
+  updateGPSAccuracy(point);
 }
 
 function updatePoint(point) {
@@ -137,6 +141,19 @@ function distanceBetween(point1, point2) {
   var x = (lon2 - lon1) * Math.cos((lat1 + lat2)/2);
   var y = lat2 - lat1;
   return Math.sqrt(x * x + y * y) * EARTH_RADIUS;
-};
+}
+
+function updateGPSAccuracy(point) {
+  if(point.accuracy > 25) {
+    $gpsBars.addClass('one').removeClass('two').removeClass('three');
+    $gpsMessage.text('GPS Signal Weak');
+  } else if (point.accuracy > 6) {
+    $gpsBars.addClass('two').removeClass('one').removeClass('three');
+    $gpsMessage.text('GPS Signal OK');
+  } else {
+    $gpsBars.addClass('three').removeClass('one').removeClass('two');
+    $gpsMessage.text('GPS Signal OK');
+  }
+}
 
 })(jQuery);

@@ -51,16 +51,52 @@ body {
   font-size: 60px;
 }
 
+#gps-signal {
+  color: #ccc;
+  left: 10px;
+  position: absolute;
+  text-align: left;
+  top:10px;
+}
+
+#gps-bars {
+  display: inline-block;
+}
+
+#gps-bars div {
+  background: #ccc;
+  display: inline-block;
+  height: 13px;
+  margin: 0 1px;
+  width: 3px;
+}
+
+#gps-bars.one #bar1,
+#gps-bars.two #bar1,
+#gps-bars.two #bar2,
+#gps-bars.three #bar1,
+#gps-bars.three #bar2,
+#gps-bars.three #bar3 {
+  background: #00ff00;
+}
+
+#gps-message {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 0 0;
+  vertical-align: top;
+}
+
 #settings {
-    background: url("../img/grain.png") repeat scroll 0 0 #323C3E;
-    bottom: 0;
-    color: #FFFFFF;
-    overflow: auto;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 240px;
-    z-index: 0;
+  background: url("../img/grain.png") repeat scroll 0 0 #323C3E;
+  bottom: 0;
+  color: #FFFFFF;
+  overflow: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 240px;
+  z-index: 0;
 }
 
 #settings header {
