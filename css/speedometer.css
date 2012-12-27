@@ -40,15 +40,18 @@ body {
 #speed {
   color: #f0f0f0;
   font-family: 'BebasNeueRegular';
+  padding: 50px 0 0;
 }
 
 #speed .val {
   display: block;
   font-size: 200px;
+  line-height: 200px;
 }
 
 #speed .units {
   font-size: 60px;
+  line-height: 60px;
 }
 
 #gps-signal {
