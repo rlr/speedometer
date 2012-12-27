@@ -12,8 +12,13 @@
     "url": "http://rickyrosario.com/"
   },
   "launch_path": "/",
-  "installs_allowed_from": ["*"],
+  "installs_allowed_from": ["https://marketplace.firefox.com"],
   "appcache_path": "/speedometer/manifest.appcache",
+  "permissions": {
+    "geolocation": {
+      "description": "Used to calculate speed based on GPS changes."
+    }
+  }
   "locales": {
   },
   "default_locale": "en"
