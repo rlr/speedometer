@@ -97,11 +97,11 @@ body {
   color: #fff;
   font-family: 'BebasNeueRegular';
   font-size: 60px;
-  height: 48px;
+  height: 32px;
   position: absolute;
   right: 15px;
   top: 15px;
-  width: 48px;
+  width: 32px;
   z-index: 2;
 }
 
