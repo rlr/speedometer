@@ -34,7 +34,7 @@ body {
 }
 
 .settings #page {
-  right: 270px;
+  right: 240px;
 }
 
 #speed {
@@ -59,7 +59,7 @@ body {
     position: absolute;
     right: 0;
     top: 0;
-    width: 270px;
+    width: 240px;
     z-index: 0;
 }
 
@@ -93,12 +93,15 @@ body {
 }
 
 #settings-toggle {
-  bottom: 0;
+  background: transparent url(../img/gear-48.png) no-repeat top left;
   color: #fff;
   font-family: 'BebasNeueRegular';
   font-size: 60px;
+  height: 48px;
   position: absolute;
-  right: 25px;
+  right: 15px;
+  top: 15px;
+  width: 48px;
   z-index: 2;
 }
 
