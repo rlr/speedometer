@@ -1,7 +1,7 @@
 CACHE MANIFEST
-# v2012-12-27-3
-index.html
-css/speedometer.css
+# v2012-12-27-5
+index.html?v2012-12-27-5
+css/speedometer.css?v2012-12-27-5
 fonts/BebasNeue-webfont.svg
 fonts/BebasNeue-webfont.ttf
 fonts/BebasNeue-webfont.woff
@@ -10,4 +10,4 @@ img/apple-touch-icon-114x114-precomposed.png
 img/gear-32.png
 img/grain.png
 js/jquery-1.8.2.min.js
-js/speedometer.js
+js/speedometer.js?v2012-12-27-5
