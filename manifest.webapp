@@ -12,7 +12,6 @@
     "name": "Ricky Rosario (r1cky)",
     "url": "http://rickyrosario.com/"
   },
-  "launch_path": "/",
   "installs_allowed_from": ["https://marketplace.firefox.com"],
   "appcache_path": "/speedometer/manifest.appcache",
   "permissions": {
