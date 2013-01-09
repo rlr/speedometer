@@ -2,10 +2,11 @@
   "version": "0.2",
   "name": "speed",
   "description": "Open Web GPS Speedometer.",
+  "launch_path": "/speedometer/",
   "icons": {
-    "16": "/img/icon-16.png",
-    "48": "/img/icon-48.png",
-    "128": "/img/icon-128.png"
+    "16": "/speedometer/img/icon-16.png",
+    "48": "/speedometer/img/icon-48.png",
+    "128": "/speedometer/img/icon-128.png"
   },
   "developer": {
     "name": "Ricky Rosario (r1cky)",
