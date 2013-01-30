@@ -19,6 +19,12 @@ body {
   text-align: center;
 }
 
+a,
+a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
 #page {
   background: #111;
   bottom: 0;
@@ -112,7 +118,7 @@ body {
 }
 
 #settings ul {
-  list-style: none;
+  border-top: 2px solid #929e9e;
   margin: 0;
   padding: 0;
   text-align: left;
@@ -124,6 +130,10 @@ body {
   font-size: 17px;
   margin: 0;
   padding: 16px 16px 10px;
+}
+
+#settings li a {
+  display: block;
 }
 
 #settings select,

@@ -1,7 +1,7 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "name": "speed",
-  "description": "Open Web GPS Speedometer.",
+  "description": "GPS Speedometer",
   "launch_path": "/speedometer/",
   "icons": {
     "16": "/speedometer/img/icon-16.png",
