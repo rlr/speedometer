@@ -92,6 +92,7 @@ function addPoint(position) {
     speed: position.coords.speed * 3600/ 1609
   };
   points.push(point);
+  if (points.length == 3) points.shift()
   updatePoint(point);
   updateSpeed();
   updateGPSAccuracy(point);
